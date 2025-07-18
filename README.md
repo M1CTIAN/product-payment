@@ -203,15 +203,6 @@ sportmax-store/
 6. **Complete Purchase**: Experience simulated payment processing
 7. **View Results**: Success page with invoice or failure page with retry options
 
-### 💳 Payment Simulation
-
-The application simulates real payment processing:
-- **Success Rate**: 70% for initial attempts, 80% for retries
-- **Processing Time**: 3-second simulation with loading animation
-- **Data Persistence**: Order details stored in localStorage
-- **Error Handling**: Comprehensive failure scenarios with recovery options
-
----
 
 ## 🔧 Configuration
 
@@ -248,27 +239,6 @@ npm i -g vercel
 vercel
 ```
 
-### Netlify
-```bash
-# Build the project
-npm run build
-
-# Deploy to Netlify
-# Upload the `out` folder to Netlify
-```
-
-### Docker
-```dockerfile
-FROM node:18-alpine
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
-RUN npm run build
-EXPOSE 3000
-CMD ["npm", "start"]
-```
-
 ---
 
 ## 🔮 Future Enhancements
@@ -293,61 +263,8 @@ CMD ["npm", "start"]
 
 ---
 
-## 🤝 Contributing
-
-We welcome contributions! Please follow these steps:
-
-1. **Fork the repository**
-2. **Create a feature branch**: `git checkout -b feature/amazing-feature`
-3. **Commit changes**: `git commit -m 'Add amazing feature'`
-4. **Push to branch**: `git push origin feature/amazing-feature`
-5. **Open a Pull Request**
-
-### 📝 Coding Standards
-- Use TypeScript for all new code
-- Follow ESLint and Prettier configurations
-- Write meaningful commit messages
-- Add proper documentation for new features
-
----
-
-## 📞 Support
-
-### 🐛 Issues & Bugs
-If you encounter any issues, please [create an issue](https://github.com/yourusername/sportmax-store/issues) with:
-- Detailed description of the problem
-- Steps to reproduce
-- Expected vs actual behavior
-- Screenshots if applicable
-
-### 💬 Contact
-- **Email**: support@sportmax.com
-- **Phone**: +91 98765 43210
-- **GitHub**: [@yourusername](https://github.com/yourusername)
-
----
-
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
-
-## 🙏 Acknowledgments
-
-- **Next.js Team** for the amazing framework
-- **Tailwind CSS** for the utility-first CSS framework
-- **Vercel** for hosting and deployment platform
-- **React Team** for the UI library
-- **TypeScript Team** for type safety
-
----
-
-<div align="center">
-  <p>Made with ❤️ by <strong>Your Name</strong></p>
-  <p>⭐ Star this repo if you found it helpful!</p>
-  
-  [![GitHub stars](https://img.shields.io/github/stars/yourusername/sportmax-store?style=social)](https://github.com/yourusername/sportmax-store/stargazers)
-  [![GitHub forks](https://img.shields.io/github/forks/yourusername/sportmax-store?style=social)](https://github.com/yourusername/sportmax-store/network/members)
-  [![GitHub issues](https://img.shields.io/github/issues/yourusername/sportmax-store)](https://github.com/yourusername/sportmax-store/issues)
-</div>
