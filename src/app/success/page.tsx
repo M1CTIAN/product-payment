@@ -89,6 +89,37 @@ Thank you for shopping with SportMax Store!
     document.body.removeChild(element);
   };
 
+  const showFailureDemo = () => {
+    if (!orderData) return;
+
+    const userConfirmed = window.confirm(
+      "Do you want to see the failure page demo?\n\nThis will simulate a payment failure scenario for demonstration purposes."
+    );
+
+    if (userConfirmed) {
+      // Create failure data based on current order data
+      const failureData = {
+        orderId: `ORD${Date.now()}`,
+        name: orderData.name,
+        age: orderData.age,
+        mobile: orderData.mobile,
+        email: orderData.email,
+        address: orderData.address,
+        pincode: orderData.pincode,
+        size: orderData.size,
+        color: orderData.color,
+        product: orderData.product,
+        paymentMethod: orderData.paymentMethod,
+        amount: orderData.amount,
+        timestamp: new Date().toISOString(),
+        error: "Payment failed due to network issues (Demo)"
+      };
+
+      localStorage.setItem('failureData', JSON.stringify(failureData));
+      window.location.href = '/failure';
+    }
+  };
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -148,8 +179,8 @@ Thank you for shopping with SportMax Store!
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div>
-              <h3 className="text-sm font-medium text-gray-500 mb-2">ORDER INFORMATION</h3>
-              <div className="space-y-1">
+              <h3 className="text-sm font-medium text-gray-600 mb-2">ORDER INFORMATION</h3>
+              <div className="space-y-1 text-gray-600">
                 <p><span className="font-medium">Order ID:</span> {orderData.orderId}</p>
                 <p><span className="font-medium">Date:</span> {formatDate(orderData.timestamp)}</p>
                 <p><span className="font-medium">Payment Method:</span> {orderData.paymentMethod}</p>
@@ -157,8 +188,8 @@ Thank you for shopping with SportMax Store!
               </div>
             </div>
 
-            <div>
-              <h3 className="text-sm font-medium text-gray-500 mb-2">DELIVERY INFORMATION</h3>
+            <div className="text-gray-600">
+              <h3 className="text-sm font-medium text-gray-600 mb-2">DELIVERY INFORMATION</h3>
               <div className="space-y-1">
                 <p><span className="font-medium">Name:</span> {orderData.name}</p>
                 <p><span className="font-medium">Mobile:</span> {orderData.mobile}</p>
@@ -214,7 +245,7 @@ Thank you for shopping with SportMax Store!
         </div>
 
         {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
           <button
             onClick={downloadInvoice}
             className="bg-gray-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-colors duration-200"
@@ -228,6 +259,29 @@ Thank you for shopping with SportMax Store!
           >
             Continue Shopping
           </Link>
+        </div>
+
+        {/* Demo Section */}
+        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6 mb-6">
+          <div className="flex items-center space-x-3 mb-3">
+            <div className="w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center">
+              <svg className="w-4 h-4 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div>
+              <h3 className="font-medium text-yellow-900">Demo Mode</h3>
+              <p className="text-sm text-yellow-700">
+                Want to see how the failure page looks? Click the button below to experience the complete payment flow.
+              </p>
+            </div>
+          </div>
+          <button
+            onClick={showFailureDemo}
+            className="bg-yellow-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-colors duration-200"
+          >
+            🎭 View Failure Page Demo
+          </button>
         </div>
 
         {/* Support Information */}

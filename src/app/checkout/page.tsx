@@ -69,37 +69,18 @@ export default function CheckoutPage() {
 
         // Simulate payment processing
         setTimeout(() => {
-            // Simulate random success/failure for demo
-            const isSuccess = Math.random() > 0.3; // 70% success rate
+            // Always redirect to success page first
+            const orderData = {
+                orderId: `ORD${Date.now()}`,
+                ...formData,
+                product,
+                paymentMethod,
+                amount: product.price,
+                timestamp: new Date().toISOString()
+            };
 
-            if (isSuccess) {
-                // Redirect to success page with order details
-                const orderData = {
-                    orderId: `ORD${Date.now()}`,
-                    ...formData,
-                    product,
-                    paymentMethod,
-                    amount: product.price,
-                    timestamp: new Date().toISOString()
-                };
-
-                localStorage.setItem('orderData', JSON.stringify(orderData));
-                window.location.href = '/success';
-            } else {
-                // Redirect to failure page
-                const failureData = {
-                    orderId: `ORD${Date.now()}`,
-                    ...formData,
-                    product,
-                    paymentMethod,
-                    amount: product.price,
-                    timestamp: new Date().toISOString(),
-                    error: "Payment failed due to technical issues"
-                };
-
-                localStorage.setItem('failureData', JSON.stringify(failureData));
-                window.location.href = '/failure';
-            }
+            localStorage.setItem('orderData', JSON.stringify(orderData));
+            window.location.href = '/success';
         }, 3000);
     };
 

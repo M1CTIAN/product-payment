@@ -59,45 +59,58 @@ export default function FailurePage() {
 
     // Simulate retry payment processing
     setTimeout(() => {
-      // Simulate random success/failure for demo (higher success rate on retry)
-      const isSuccess = Math.random() > 0.2; // 80% success rate on retry
+      // Always succeed on retry for demo purposes
+      const orderData = {
+        orderId: `ORD${Date.now()}`,
+        name: failureData.name,
+        age: failureData.age,
+        mobile: failureData.mobile,
+        email: failureData.email,
+        address: failureData.address,
+        pincode: failureData.pincode,
+        size: failureData.size,
+        color: failureData.color,
+        product: failureData.product,
+        paymentMethod,
+        amount: failureData.product.price,
+        timestamp: new Date().toISOString()
+      };
       
-      if (isSuccess) {
-        // Redirect to success page with order details
-        const orderData = {
-          orderId: `ORD${Date.now()}`,
-          name: failureData.name,
-          age: failureData.age,
-          mobile: failureData.mobile,
-          email: failureData.email,
-          address: failureData.address,
-          pincode: failureData.pincode,
-          size: failureData.size,
-          color: failureData.color,
-          product: failureData.product,
-          paymentMethod,
-          amount: failureData.product.price,
-          timestamp: new Date().toISOString()
-        };
-        
-        localStorage.setItem('orderData', JSON.stringify(orderData));
-        localStorage.removeItem('failureData'); // Clear failure data
-        window.location.href = '/success';
-      } else {
-        // Update failure data with new attempt
-        const newFailureData = {
-          ...failureData,
-          orderId: `ORD${Date.now()}`,
-          paymentMethod,
-          timestamp: new Date().toISOString(),
-          error: "Payment failed again due to network issues"
-        };
-        
-        localStorage.setItem('failureData', JSON.stringify(newFailureData));
-        setFailureData(newFailureData);
-        setIsRetrying(false);
-      }
+      localStorage.setItem('orderData', JSON.stringify(orderData));
+      localStorage.removeItem('failureData'); // Clear failure data
+      window.location.href = '/success';
     }, 3000);
+  };
+
+  const showSuccessDemo = () => {
+    if (!failureData) return;
+
+    const userConfirmed = window.confirm(
+      "Do you want to see the success page demo?\n\nThis will simulate a successful payment for demonstration purposes."
+    );
+
+    if (userConfirmed) {
+      // Create success data based on current failure data
+      const orderData = {
+        orderId: `ORD${Date.now()}`,
+        name: failureData.name,
+        age: failureData.age,
+        mobile: failureData.mobile,
+        email: failureData.email,
+        address: failureData.address,
+        pincode: failureData.pincode,
+        size: failureData.size,
+        color: failureData.color,
+        product: failureData.product,
+        paymentMethod: failureData.paymentMethod,
+        amount: failureData.amount,
+        timestamp: new Date().toISOString()
+      };
+
+      localStorage.setItem('orderData', JSON.stringify(orderData));
+      localStorage.removeItem('failureData'); // Clear failure data
+      window.location.href = '/success';
+    }
   };
 
   if (isLoading) {
@@ -160,7 +173,7 @@ export default function FailurePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div>
               <h3 className="text-sm font-medium text-gray-500 mb-2">TRANSACTION INFORMATION</h3>
-              <div className="space-y-1">
+              <div className="space-y-1 text-gray-600">
                 <p><span className="font-medium">Transaction ID:</span> {failureData.orderId}</p>
                 <p><span className="font-medium">Date:</span> {formatDate(failureData.timestamp)}</p>
                 <p><span className="font-medium">Payment Method:</span> {failureData.paymentMethod}</p>
@@ -170,7 +183,7 @@ export default function FailurePage() {
 
             <div>
               <h3 className="text-sm font-medium text-gray-500 mb-2">CUSTOMER INFORMATION</h3>
-              <div className="space-y-1">
+              <div className="space-y-1 text-gray-600">
                 <p><span className="font-medium">Name:</span> {failureData.name}</p>
                 <p><span className="font-medium">Mobile:</span> {failureData.mobile}</p>
                 <p><span className="font-medium">Email:</span> {failureData.email}</p>
@@ -274,7 +287,7 @@ export default function FailurePage() {
         </div>
 
         {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
           <Link
             href="/checkout"
             className="bg-gray-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-colors duration-200 text-center"
@@ -288,6 +301,29 @@ export default function FailurePage() {
           >
             Continue Shopping
           </Link>
+        </div>
+
+        {/* Demo Section */}
+        <div className="bg-green-50 border border-green-200 rounded-lg p-6 mb-6">
+          <div className="flex items-center space-x-3 mb-3">
+            <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+              <svg className="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div>
+              <h3 className="font-medium text-green-900">Demo Mode</h3>
+              <p className="text-sm text-green-700">
+                Want to see how the success page looks? Click the button below to experience a successful payment flow.
+              </p>
+            </div>
+          </div>
+          <button
+            onClick={showSuccessDemo}
+            className="bg-green-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors duration-200"
+          >
+            ✅ View Success Page Demo
+          </button>
         </div>
 
         {/* Support Information */}
