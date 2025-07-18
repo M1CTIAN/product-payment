@@ -1,0 +1,8 @@
+<svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="400" fill="#F3F4F6"/>
+  <path d="M80 300C80 300 120 280 200 280C280 280 320 300 320 300L320 320C320 320 280 340 200 340C120 340 80 320 80 320V300Z" fill="#1F2937"/>
+  <path d="M80 300C80 300 120 270 200 270C280 270 320 300 320 300C320 290 280 260 200 260C120 260 80 290 80 300Z" fill="#374151"/>
+  <ellipse cx="200" cy="280" rx="40" ry="10" fill="#6B7280"/>
+  <text x="200" y="180" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#374151">Premium Shoes</text>
+  <text x="200" y="210" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#6B7280">SportMax Collection</text>
+</svg>
