@@ -133,7 +133,7 @@ Thank you for shopping with SportMax Store!
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-900 mb-4">No Order Found</h1>
-          <p className="text-gray-600 mb-6">We couldn't find any order information.</p>
+          <p className="text-gray-600 mb-6">We couldn&apos;t find any order information.</p>
           <Link href="/" className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700">
             Back to Store
           </Link>
@@ -238,7 +238,7 @@ Thank you for shopping with SportMax Store!
             <div>
               <h3 className="font-medium text-blue-900">Expected Delivery</h3>
               <p className="text-sm text-blue-700">
-                Your order will be delivered within 3-5 business days. You'll receive tracking information via email.
+                Your order will be delivered within 3-5 business days. You&apos;ll receive tracking information via email.
               </p>
             </div>
           </div>
