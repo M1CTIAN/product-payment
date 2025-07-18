@@ -8,6 +8,11 @@ export default function ProductPage() {
   const [selectedSize, setSelectedSize] = useState("9");
   const [selectedColor, setSelectedColor] = useState("Black");
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isLiked, setIsLiked] = useState(false);
+
+  const handleHeartClick = () => {
+    setIsLiked(!isLiked);
+  };
 
   const product = {
     id: 1,
@@ -47,7 +52,32 @@ export default function ProductPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <>
+      <style jsx>{`
+        @keyframes likeAnimation {
+          0% {
+            transform: scale(1);
+          }
+          15% {
+            transform: scale(1.2);
+          }
+          30% {
+            transform: scale(0.95);
+          }
+          45% {
+            transform: scale(1.05);
+          }
+          60% {
+            transform: scale(1);
+          }
+        }
+        
+        .like-animation {
+          animation: likeAnimation 0.5s ease-out;
+        }
+      `}</style>
+      
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       {/* Header */}
       <header className="bg-white/80 backdrop-blur-md shadow-lg sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
@@ -116,9 +146,26 @@ export default function ProductPage() {
                   </span>
                 </div>
                 <div className="absolute top-4 right-4 z-20">
-                  <button className="p-2 bg-white/80 backdrop-blur-md rounded-full shadow-lg hover:bg-white transition-all duration-200">
-                    <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                  <button 
+                    onClick={handleHeartClick}
+                    className={`p-3 backdrop-blur-md rounded-full shadow-lg transition-all duration-200 transform hover:scale-110 ${
+                      isLiked 
+                        ? 'bg-red-500 text-white like-animation' 
+                        : 'bg-white/80 text-gray-600 hover:bg-white'
+                    }`}
+                  >
+                    <svg 
+                      className="w-6 h-6 transition-all duration-200" 
+                      fill={isLiked ? "currentColor" : "none"} 
+                      stroke="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round" 
+                        strokeWidth={isLiked ? 0 : 2} 
+                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" 
+                      />
                     </svg>
                   </button>
                 </div>
@@ -361,5 +408,6 @@ export default function ProductPage() {
         </div>
       </main>
     </div>
+    </>
   );
 }
